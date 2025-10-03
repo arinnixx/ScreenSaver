@@ -5,15 +5,14 @@ using System.Windows.Forms;
 
 namespace ScreenSaver
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         private readonly List<Snowflake> snowflakes = new List<Snowflake>();
-        private readonly Random random = new Random();
-        private readonly Image villageImage = Properties.Resources.village;
+        private readonly Random random = new();
         private readonly Image snowflakeImage = Properties.Resources.snow;
         private readonly System.Windows.Forms.Timer timer;
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
 
@@ -28,8 +27,8 @@ namespace ScreenSaver
             {
                 snowflakes.Add(new Snowflake
                 {
-                    X = random.Next(0, this.Width),
-                    Y = random.Next(-this.Height, 0),
+                    X = random.Next(0,Width),
+                    Y = random.Next(-Height, 0),
                     Size = random.Next(10, 40),
                     Speed = random.Next(2, 8)
                 });
@@ -38,12 +37,12 @@ namespace ScreenSaver
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            // Обновление позиций снежинок
+            // РћР±РЅРѕРІР»РµРЅРёРµ РїРѕР·РёС†РёР№ СЃРЅРµР¶РёРЅРѕРє
             foreach (var snowflake in snowflakes)
             {
                 snowflake.Y += snowflake.Speed;
 
-                // Если снежинка ушла за нижнюю границу, перемещаем её наверх
+                // Р•СЃР»Рё СЃРЅРµР¶РёРЅРєР° СѓС€Р»Р° Р·Р° РЅРёР¶РЅСЋСЋ РіСЂР°РЅРёС†Сѓ, РїРµСЂРµРјРµС‰Р°РµРј РµС‘ РЅР°РІРµСЂС…
                 if (snowflake.Y > this.Height)
                 { 
                     snowflake.Y = -snowflake.Size;
@@ -51,7 +50,7 @@ namespace ScreenSaver
                 }
             }
 
-            // Перерисовка формы
+            // РџРµСЂРµСЂРёСЃРѕРІРєР° С„РѕСЂРјС‹
             this.Invalidate();
         }
 
@@ -64,7 +63,7 @@ namespace ScreenSaver
         private void Form1_Load(object sender, EventArgs e)
         {
 
-            // Создание снежинок
+            // РЎРѕР·РґР°РЅРёРµ СЃРЅРµР¶РёРЅРѕРє
             CreateSnowflakes(120);
 
             timer.Start();
@@ -72,7 +71,7 @@ namespace ScreenSaver
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            // Рисуем снежинки
+            // Р РёСЃСѓРµРј СЃРЅРµР¶РёРЅРєРё
             foreach (var snowflake in snowflakes)
             {
                 var rect = new Rectangle(
